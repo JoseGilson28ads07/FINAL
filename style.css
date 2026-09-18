@@ -1,0 +1,363 @@
+/* ============================================================
+   MAPA DOS REQUISITOS (para facilitar a conferência na entrega)
+   ----------------------------------------------------------
+   Seletor por ELEMENTO     -> body, h1, h2, a, input, form...
+   Seletor por ID           -> #foto-perfil, #modal-contato, #btn-abrir-contato
+   Seletor por CLASSE       -> .folha, .hero, .btn-contato, .item...
+   Seletor por ATRIBUTO     -> a[target="_blank"], input[type="url"], input[required]
+   Seletor por PSEUDO-CLASSE-> a:hover, .btn-contato:hover, input:focus,
+                                #modal-contato:target (abre o modal sem JS)
+   2 fontes distintas       -> 'Fraunces' (títulos) + 'Inter' (corpo), ambas via Google Fonts (externas)
+   2 estilos de fonte       -> itálico (.cargo em) + negrito (h1, h2, .btn-contato)
+   Decoração de texto       -> underline decorativo em .cargo em
+   Cor de link no hover     -> a:hover
+   ============================================================ */
+
+   :root {
+    --bg: #E7E9E6;
+    --paper: #FFFFFF;
+    --ink: #1E2422;
+    --ink-soft: #5C6663;
+    --accent: #234E52;
+    --accent-2: #C08B2C;
+    --accent-soft: #E4EDEC;
+    --line: #E2E6E4;
+  
+    --font-titulo: 'Fraunces', serif;
+    --font-corpo: 'Inter', sans-serif;
+  }
+  
+  /* ---------- Seletores por ELEMENTO ---------- */
+  * { box-sizing: border-box; }
+  
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-corpo);
+    line-height: 1.6;
+  }
+  
+  h1, h2, h3 {
+    font-family: var(--font-titulo);
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+  
+  a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: var(--accent-2);
+    text-decoration: underline;
+  }
+  
+  input {
+    font-family: var(--font-corpo);
+    font-size: 0.95rem;
+  }
+  
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 2px;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+  
+  /* ============================================================
+     UMA ÚNICA "FOLHA" — tudo dentro do mesmo bloco de papel, sem
+     caixas separadas, para ler como um documento contínuo
+     ============================================================ */
+  .pagina {
+    max-width: 900px;
+    margin: 48px auto;
+    background: var(--paper);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 18px 40px rgba(30, 36, 34, 0.08);
+    overflow: hidden;
+  }
+  
+  /* ---------- HERO ---------- */
+  .hero {
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 44px 48px;
+    flex-wrap: wrap;
+  }
+  
+  #foto-perfil {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
+  }
+  
+  .hero-texto h1 {
+    font-size: 1.85rem;
+    color: #fff;
+  }
+  
+  .hero-texto .cargo {
+    margin: 6px 0 16px;
+    font-size: 1rem;
+    color: #DCE9E7;
+  }
+  
+  .hero-texto .cargo em {
+    font-style: italic;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--accent-2);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  
+  .btn-contato {
+    display: inline-block;
+    font-family: var(--font-corpo);
+    font-weight: 600;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 9px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .btn-contato:hover {
+    background: var(--accent-2);
+    border-color: var(--accent-2);
+    color: #22271F;
+    text-decoration: none;
+  }
+  
+  /* ============================================================
+     CORPO — duas colunas fluindo lado a lado, sem cartões avulsos
+     ============================================================ */
+  .conteudo {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+  }
+  
+  .coluna-principal { padding: 8px 48px 44px; }
+  .coluna-lateral {
+    padding: 8px 40px 44px 36px;
+    border-left: 1px solid var(--line);
+  }
+  
+  /* Cada seção é separada por uma linha fina, não por uma caixa —
+     reforça a leitura como um único documento contínuo */
+  .coluna-principal section,
+  .coluna-lateral section {
+    padding: 26px 0;
+    border-top: 1px solid var(--line);
+  }
+  
+  .coluna-principal section:first-child,
+  .coluna-lateral section:first-child {
+    border-top: none;
+    padding-top: 34px;
+  }
+  
+  /* Título de seção com uma pequena marca de cor à esquerda,
+     no lugar de uma borda pesada embaixo */
+  .conteudo h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.02rem;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  
+  .conteudo h2::before {
+    content: "";
+    width: 4px;
+    height: 1em;
+    background: var(--accent-2);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  
+  .resumo p,
+  .ods p { color: var(--ink-soft); max-width: 62ch; margin: 0; }
+  
+  .item + .item { margin-top: 18px; }
+  .item h3 { font-size: 1rem; margin-bottom: 2px; font-weight: 600; font-family: var(--font-corpo); }
+  .item .periodo { font-size: 0.82rem; color: var(--ink-soft); margin: 0 0 8px; }
+  .item ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 0.92rem; }
+  .item ul li { margin-bottom: 4px; }
+  
+  .ods figure { margin: 0 0 14px; max-width: 40px; }
+  .ods figure svg { width: 100%; display: block; border-radius: 8px; }
+  .ods figcaption { font-size: 0.8rem; color: var(--ink-soft); margin-top: 6px; }
+  
+  /* ---------- COLUNA LATERAL ---------- */
+  .lista-contato { list-style: none; margin: 0; padding: 0; font-size: 0.88rem; }
+  .lista-contato li { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; word-break: break-word; }
+  .icone-contato { width: 14px; height: 14px; flex-shrink: 0; }
+  
+  .lista-tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+  .lista-tags li {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  
+  .rodape {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+    padding: 28px 40px 36px;
+    color: var(--ink-soft);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--line);
+  }
+  
+  /* O botão no rodapé fica sobre fundo claro, então usa as cores sólidas
+     em vez do estilo translúcido pensado para o hero escuro */
+  .btn-contato-rodape {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .btn-contato-rodape:hover {
+    background: var(--accent-2);
+    border-color: var(--accent-2);
+    color: #22271F;
+  }
+  
+  /* ============================================================
+     MODAL DE CONTATO — só com HTML + CSS (sem JavaScript)
+     ============================================================ */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 26, 24, 0.55);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 50;
+  }
+  
+  #modal-contato:target { display: flex; }
+  
+  .modal-fundo { position: absolute; inset: 0; }
+  
+  .modal-conteudo {
+    position: relative;
+    background: var(--paper);
+    border-radius: 10px;
+    width: min(420px, 100%);
+    padding: 28px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  }
+  
+  .modal-cabecalho {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  
+  .modal-descricao { color: var(--ink-soft); margin: -8px 0 0; font-size: 0.9rem; }
+  
+  .btn-fechar {
+    font-family: var(--font-corpo);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--ink-soft);
+    padding: 2px 6px;
+  }
+  .btn-fechar:hover { color: var(--ink); text-decoration: none; }
+  
+  .campo { display: flex; flex-direction: column; gap: 6px; }
+  .campo label { font-size: 0.85rem; font-weight: 600; }
+  
+  .campo input {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 10px 12px;
+    color: var(--ink);
+    width: 100%;
+  }
+  
+  input[required] { border-left: 3px solid var(--accent-2); }
+  input[type="url"],
+  input[type="tel"] { font-variant-numeric: tabular-nums; }
+  
+  input:invalid:not(:placeholder-shown) { border-color: #B3413B; }
+  input:focus { border-color: var(--accent); }
+  
+  .btn-enviar {
+    align-self: flex-start;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 999px;
+    padding: 11px 24px;
+    cursor: pointer;
+    font-family: var(--font-corpo);
+    font-size: 0.9rem;
+  }
+  .btn-enviar:hover { background: #1B3D40; }
+  
+  /* ============================================================
+     RESPONSIVO
+     ============================================================ */
+  @media (max-width: 780px) {
+    .pagina { margin: 0; border-radius: 0; }
+    .conteudo { grid-template-columns: 1fr; }
+    .coluna-principal { padding: 8px 28px 8px; }
+    .coluna-lateral {
+      padding: 8px 28px 36px;
+      border-left: none;
+      border-top: 1px solid var(--line);
+    }
+    .coluna-lateral section:first-child { border-top: none; padding-top: 28px; }
+    .hero { padding: 36px 28px; }
+  }
+  
+  @media (max-width: 460px) {
+    .hero { flex-direction: column; text-align: center; padding: 32px 22px; }
+    .hero-texto h1 { font-size: 1.5rem; }
+    .conteudo h2 { justify-content: center; }
+  }
+  
+  /* ============================================================
+     IMPRESSÃO / PDF
+     ============================================================ */
+  @media print {
+    body { background: #fff; }
+    .pagina { box-shadow: none; margin: 0; border-radius: 0; }
+    .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .btn-contato { display: none; }
+    .coluna-principal section,
+    .coluna-lateral section { break-inside: avoid; page-break-inside: avoid; }
+  }
